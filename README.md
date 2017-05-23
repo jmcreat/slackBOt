@@ -1,3 +1,17 @@
+# slackBot
+You will need node.js and npm. Once those are installed, we can install the hubot generator:
+
+    %  npm install -g yo generator-hubot
+    % mkdir myhubot
+    % cd myhubot
+    % yo hubot
+
+start  
+- ./startHubot.sh
+
+
+if you start hubot, implements in the 'scripts' folder scripts file
+
 # myhubot
 
 myhubot is a chat bot built on the [Hubot][hubot] framework. It was
@@ -212,4 +226,3 @@ Add the subdomain hubot should connect to. If you web URL looks like
 
 You may want to get comfortable with `heroku logs` and `heroku restart` if
 you're having issues.
-# slackBot
