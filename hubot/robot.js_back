@@ -1,0 +1,66 @@
+var exec = require('child_process').exec;
+var stop;
+const fs = require('fs');
+
+const testFolder = '.';
+var array = [];
+
+function startAll() {
+  return new Promise(function(resolve, reject) {
+    fs.readdir(testFolder, (err, files) => {
+      files.forEach(file => {
+        array.push(file)
+        // console.log(file)
+      })
+
+      resolve(array)
+    })
+  });
+}
+
+function startChild(){
+return new Promise(function(resolve, reject) {
+  
+console.log('bot관리 목록 실행')
+child = exec('node testCase/ranking.js',function(error,stdout,stderr)
+{
+  console.log('stdout'+stdout);
+  console.log('stderr'+stderr);
+  resolve(stdout);
+  if(error !==null){
+    console.log('exec error + errorad');
+    reject();
+  }
+
+});
+});
+}
+
+
+module.exports = function(robot){
+  console.log('robot'+robot)
+   robot.hear(/naver/, function(msg) {
+    console.log('msg');
+     return msg.send("http://datalab.naver.com/keyword/realtimeList.naver?where=main");
+});
+
+   robot.hear(/bit/, function(msg){
+     startChild().then(function(bitValue){
+       console.log('bitvalue : '+bitValue)
+       return msg.send(bitValue);
+     });
+
+    stop=setInterval(function(){
+    startChild().then(function(bitValue){
+      console.log('bitvalue : '+bitValue)
+      return msg.send(bitValue);
+    });
+
+  },15000)//setInterval
+  });
+
+  robot.hear(/bitstop/,function(msg){
+    clearInterval(stop);
+    msg.send('bitbot 이 멈췄습니다.')
+  });
+}
