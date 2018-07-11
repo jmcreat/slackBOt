@@ -1,3 +1,10 @@
+# 구동 순서
+1. slack key 를 startHubot.sh 에 기입
+2. 소스코드 dir 하위에 놓기
+3. scripts/robot.js 에 소스코드 경로 등록
+4. console.log 들이 slack 으로 전송된다.
+
+
 # slackBot
 You will need node.js and npm. Once those are installed, we can install the hubot generator:
 
